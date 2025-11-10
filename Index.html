@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NxtConnect.ai Investor Deck</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@0.395.0/dist/umd/lucide.min.js"></script>
+
+    <style>
+        /* HARVARD PROFESSIONAL THEME */
+        :root {
+            --harvard-navy: #0A192F;
+            --harvard-crimson: #A51C30;
+            --harvard-gold: #D4AF37;
+            --harvard-white: #E6F1FF;
+            --harvard-gray: #8892B0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--harvard-navy);
+            color: var(--harvard-white);
+            overflow: hidden;
+        }
+        h1, h2, h3, .serif {
+            font-family: 'Playfair Display', serif;
+        }
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+            z-index: 10;
+            background-color: var(--harvard-navy);
+        }
+        .active-slide {
+            opacity: 1;
+            z-index: 20;
+        }
+        .slide-content {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .accent-text { color: var(--harvard-gold); }
+        .crimson-text { color: var(--harvard-crimson); }
+        .accent-border { border-color: var(--harvard-gold); }
+        .crimson-border { border-color: var(--harvard-crimson); }
+
+        .nav-button {
+            position: fixed;
+            bottom: 2rem;
+            z-index: 40;
+            padding: 0.75rem;
+            background-color: rgba(230, 241, 255, 0.1);
+            color: var(--harvard-white);
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        .nav-button:hover {
+            background-color: var(--harvard-gold);
+            color: var(--harvard-navy);
+        }
+        #prev-slide { right: 6rem; }
+        #next-slide { right: 2rem; }
+        .slide-number {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            z-index: 40;
+            color: var(--harvard-gray);
+            font-size: 0.875rem;
+            font-family: 'Inter', sans-serif;
+        }
+        .hero-text {
+            font-size: 5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+        .gold-gradient-text {
+             background: linear-gradient(to right, #FCEE21, #D4AF37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .pie-chart-container {
+            height: 300px;
+            max-height: 300px;
+            max-width: 300px;
+        }
+        /* Logo Styling */
+        .fixed-logo {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 50;
+            height: 2.5rem; /* Adjust based on your actual logo aspect ratio */
+            width: auto;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        .title-logo {
+            height: 5rem;
+            width: auto;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero-text { font-size: 3rem; }
+            .slide { padding: 1.5rem; }
+            #prev-slide { right: 5rem; }
+            #next-slide { right: 1.5rem; }
+            .fixed-logo { height: 2rem; top: 1.5rem; left: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- FIXED LOGO (Visible on slides 2-13 & 15) -->
+    <img id="global-logo" src="logo.png" alt="NxtConnect Logo" class="fixed-logo hidden">
+    
+    <!-- Slide 1: Title -->
+    <section class="slide active-slide" data-logo="central">
+        <div class="slide-content text-center flex flex-col items-center">
+            <!-- CENTRAL LOGO PLACEHOLDER FOR TITLE SLIDE -->
+            <img src="logo.png" alt="NxtConnect Logo" class="title-logo" onerror="this.style.display='none'">
+            
+            <h1 class="hero-text text-white">NxtConnect<span class="accent-text">.ai</span></h1>
+            <h2 class="mt-6 text-3xl md:text-4xl text-gray-300 max-w-3xl mx-auto font-light leading-relaxed serif">
+                The Intelligent Connector for Automated Sales & Data Monetization.
+            </h2>
+             <div class="mt-12 flex flex-col items-center space-y-2">
+                <p class="text-lg text-harvard-gray tracking-widest uppercase font-semibold">Investor Memorandum: Seed Round</p>
+                 <div class="w-24 h-1 bg-harvard-gold rounded-full"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 2: The Problem -->
+    <section class="slide" data-logo="fixed">
+        <div class="slide-content">
+            <div class="text-sm font-semibold accent-text uppercase tracking-widest mb-2">The Problem</div>
+            <h2 class="text-4xl md:text-5xl font-bold text-white serif">The Two-Front Productivity Crisis</h2>
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="bg-white/5 p-8 rounded-xl border-l-4 crimson-border backdrop-blur-sm">
+                    <h3 class="text-2xl font-bold text-white mb-6 flex items-center"><i data-lucide="building-2" class="w-6 h-6 mr-3 accent-text"></i>Enterprise: The Money Pit</h3>
+                    <ul class="space-y-6">
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <span class="block text-5xl font-extrabold crimson-text serif">70%</span>
+                                <span class="text-xs text-gray-400 uppercase tracking-widest">Non-Selling Time</span>
+                            </div>
+                            <p class="ml-6 text-lg text-gray-300">of sales rep time is wasted on admin & data entry, NOT selling. (Source: Salesforce)</p>
+                        </li>
+                        <li class="flex items-start">
+                             <div class="flex-shrink-0">
+                                 <span class="block text-4xl font-extrabold crimson-text serif">$12.9M</span>
+                                 <span class="text-xs text-gray-400 uppercase tracking-widest">Avg. Annual Loss</span>
+                            </div>
+                            <p class="ml-6 text-lg text-gray-300">cost to organizations due to poor data quality. (Source: Gartner)</p>
+                        </li>
+                    </ul>
+                </div>
+                 <div class="bg-white/5 p-8 rounded-xl border-l-4 accent-border backdrop-blur-sm">
+                    <h3 class="text-2xl font-bold text-white mb-6 flex items-center"><i data-lucide="user" class="w-6 h-6 mr-3 accent-text"></i>Solopreneur: The Ceiling</h3>
+                    <ul class="space-y-6">
+                         <li class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <span class="block text-5xl font-extrabold accent-text serif">36%</span>
+                                <span class="text-xs text-gray-400 uppercase tracking-widest">Lost Workweek</span>
+                            </div>
+                            <p class="ml-6 text-lg text-gray-300">of their week is lost to non-billable administrative tasks, mathematically capping income.</p>
+                        </li>
+                         <li class="flex items-center h-full">
+                             <p class="text-xl text-gray-300 italic">"I can't grow because I can't work more hours."</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 3: The Solution -->
+    <section class="slide" data-logo="fixed">
+        <div class="slide-content">
+            <div class="text-sm font-semibold accent-text uppercase tracking-widest mb-2">The Solution</div>
+            <h2 class="text-4xl md:text-5xl font-bold text-white serif">An AI-Native Relationship Platform</h2>
+            <p class="mt-4 text-xl text-gray-300 max-w-3xl">Moving beyond legacy CRM by turning scattered conversations into predictive assets.</p>
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white/5 p-8 rounded-xl border-t-4 accent-border">
+                    <i data-lucide="bot" class="accent-text w-12 h-12 mb-6"></i>
+                    <h3 class="text-2xl font-bold text-white mb-4 serif">1. Automate & Unify</h3>
+                    <p class="text-lg text-gray-300">Eliminates manual entry. Automatically structures interactions from Email, LinkedIn, and Calendar into one living graph.</p>
+                </div>
+                <div class="bg-white/5 p-8 rounded-xl border-t-4 accent-border">
+                    <i data-lucide="trending-up" class="accent-text w-12 h-12 mb-6"></i>
+                    <h3 class="text-2xl font-bold text-white mb-4 serif">2. Predict & Act</h3>
+                    <p class="text-lg text-gray-300">Analyzes communication patterns to predict deal risk, identify churn signals, and prompt the next best action.</p>
+                </div>
+                <div class="bg-white/5 p-8 rounded-xl border-t-4 crimson-border">
+                     <i data-lucide="coins" class="crimson-text w-12 h-12 mb-6"></i>
+                    <h3 class="text-2xl font-bold text-white mb-4 serif">3. Monetize Data</h3>
+                    <p class="text-lg text-gray-300">Transforms dormant, unstructured data into actionable, high-value assets for immediate monetization.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 4: Proven ROI -->
+    <section class="slide" data-logo="fixed">
+        <div class="slide-content">
+            <div class="text-sm font-semibold accent-text uppercase tracking-widest mb-2">Proven ROI</div>
+            <h2 class="text-4xl md:text-5xl font-bold text-white serif">Case Study: SIS International</h2>
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="bg-white/5 p-8 rounded-xl border border-white/10">
+                    <h3 class="text-2xl font-bold text-gray-300 mb-6 serif">Phase 1: Operational Efficiency</h3>
+                    <div class="space-y-8">
+                         <div class="text-center">
+                            <div class="text-6xl font-extrabold accent-text serif">$15k</div>
+                            <div class="text-lg text-white mt-2">Monthly Cost Savings</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-6xl font-extrabold accent-text serif">3.2x</div>
+                            <div class="text-lg text-white mt-2">Productivity Boost</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white/5 p-8 rounded-xl border-2 accent-border shadow-2xl shadow-harvard-gold/10">
+                    <h3 class="text-2xl font-bold text-white mb-6 serif">Phase 2: Value Creation (Unicorn Thesis)</h3>
+                     <div class="text-center mb-8">
+                            <div class="text-7xl font-extrabold gold-gradient-text serif">$700M</div>
+                            <div class="text-xl text-white mt-2 font-semibold">New Data Asset Value</div>
+                    </div>
+                    <ul class="text-lg text-gray-300 space-y-4 list-disc list-inside">
+                        <li>Identified <strong class="text-white">147 Million</strong> valid business contacts dormant in their systems.</li>
+                        <li>Negotiating joint venture to monetize this asset.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 5: Traction -->
+    <section class="slide" data-logo="fixed">
+        <div class="slide-content">
+             <div class="text-sm font-semibold accent-text uppercase tracking-widest mb-2">Traction</div>
+            <h2 class="text-4xl md:text-5xl font-bold text-white serif">De-Risked & Ready to Scale</h2>
+             <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-5xl md:text-6xl font-extrabold text-white serif">$30k</div>
+                    <div class="text-gray-400 mt-2 uppercase tracking-widest text-sm font-semibold">Monthly Recurring Rev</div>
+                </div>
+                 <div>
+                    <div class="text-5xl md:text-6xl font-extrabold text-white serif">$360k</div>
+                    <div class="text-gray-400 mt-2 uppercase tracking-widest text-sm font-semibold">Annual Run-Rate</div>
+                </div>
+                 <div>
+                    <div class="text-5xl md:text-6xl font-extrabold text-white serif">1,200+</div>
+                    <div class="text-gray-400 mt-2 uppercase tracking-widest text-sm font-semibold">Solopreneur Waitlist</div>
+                </div>
+                 <div>
+                    <div class="text-5xl md:text-6xl font-extrabold accent-text serif">$700M</div>
+                    <div class="text-gray-400 mt-2 uppercase tracking-widest text-sm font-semibold">Data Asset Unlocked</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 6: Business Model -->
+    <section class="slide" data-logo="fixed">
+        <div class="slide-content">
+            <div class="text-sm font-semibold accent-text uppercase tracking-widest mb-2">Business Model</div>
+            <h2 class="text-4xl md:text-5xl font-bold text-white serif">The 'Land & Expand' Flywheel</h2>
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                <div class="bg-white/5 p-8 rounded-xl border border-white/10">
+                    <h3 class="text-xl font-bold text-gray-400 uppercase tracking-widest mb-4">Freelancer (Land)</h3>
+                    <div class="text-5xl font-extrabold text-white serif">$49<span class="text-2xl text-gray-400 font-normal">/mo</span></div>
+                    <p class="mt-6 text-gray-300">PLG engine. Low-cost acquisition acts as a Trojan Horse into larger orgs.</p>
+                </div>
+                <div class="bg-white/5 p-8 rounded-xl border border-white/10">
+                    <h3 class="text-xl font-bold text-gray-400 uppercase tracking-widest mb-4">SMB Pro (Expand)</h3>
+                    <div class="text-5xl font-extrabold text-white serif">$299<span class="text-2xl text-gray-400 font-normal">/mo</span></div>
+                    <p class="mt-6 text-gray-300">Full automation for small teams. The clear upsell path for power users.</p>
+                </div>
+                <div class="bg-white/5 p-8 rounded-xl border-2 accent-border relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-harvard-gold text-harvard-navy text-xs font-bold px-3 py-1 uppercase">Focus</div>
+                    <h3 class="text-xl font-bold text-gray-400 uppercase tracking-widest mb-4">Enterprise (Monetize)</h3>
+                    <div class="text-3xl font-extrabold text-white serif">$100k <span class="text-xl text-gray-400 font-normal">Setup</span></div>
+                    <div class="text-2xl font-bold text-white serif mt-1">+ $60k<span class="text-xl text-gray-400 font-normal">/yr</span></div>
+                    <p class="mt-6 text-gray-300">Hybrid model. High-touch implementation ensures commitment & covers CAC instantly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 7: Unit Economics -->
+    <section class="slide" data-logo="fixed">
+        <div class="slide-content">
+            <div class="text-sm font-semibold accent-text uppercase tracking-widest mb-2">Unit Economics</div>
+            <h2 class="text-4xl md:text-5xl font-bold text-white serif">Rigorous & Profitable Scaling</h2>
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="bg-white/5 p-8 rounded-xl border-t-4 accent-border">
+                    <h3 class="text-2xl font-bold text-white mb-6 serif">Solopreneur Engine (PLG)</h3>
+                    <table class="w-full text-lg">
+                        <tr class="border-b border-white/10"><td class="py-3 text-gray-400">Revenue</td><td class="py-3 text-right font-bold">$49 /mo</td></tr>
+                        <tr class="border-b border-white/10"><td class="py-3 text-gray-400">COGS (Maint.)</td><td class="py-3 text-right text-crimson-text">($18) /mo</td></tr>
+                        <tr class="border-b border-white/10"><td class="py-3 text-white font-bold">Gross Profit</td><td class="py-3 text-right font-bold text-white">$31 /mo (63%)</td></tr>
+                        <tr><td class="py-4 text-gray-400">CAC</td><td class="py-4 text-right font-bold">$30</td></tr>
+                    </table>
+                    <div class="mt-6 text-center bg-harvard-navy p-4 rounded-lg border accent-border">
+                        <span class="text-4xl font-extrabold accent-text serif">12 : 1</span>
+                        <span class="block text-sm text-gray-400 uppercase tracking-widest mt-1">LTV/CAC Ratio (Gross)</span>
+                    </div>
+                </div>
+                 <div class="bg-white/5 p-8 rounded-xl border-t-4 crimson-border">
+                    <h3 class="text-2xl font-bold text-white mb-6 serif">Enterprise Engine (GTM)</h3>
+                     <table class="w-full text-lg">
+                        <tr class="border-b border-white/10"><td class="py-3 text-gray-400">Impl. Fee (Day 1)</td><td class="py-3 text-right font-bold">$100,000</td></tr>
+                        <tr class="border-b border-white/10"><td class="py-3 text-gray-400">Impl. Costs (COGS)</td><td class="py-3 text-right text-crimson-text">($30,000)</td></tr>
+                        <tr class="border-b border-white/10"><td class="py-3 text-white font-bold">Net Day 1 Cash</td><td class="py-3 text-right font-bold accent-text">+$70,000</td></tr>
+                         <tr><td class="py-4 text-gray-400">Annual License</td><td class="py-4 text-right font-bold">$60,000 /yr</td></tr>
+                    </table>
+                    <div class="mt-6 text-center bg-harvard-navy p-4 rounded-lg border crimson-border">
+                        <span class="text-3xl font-extrabold text-white serif">NEGATIVE PAYBACK</span>
+                         <span class="block text-sm text-gray-400 uppercase tracking-widest mt-1">Profitable on Day 1</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 8: The Market -->
+    <section class="slide" data-logo="fixed">
+        <div class="slide-content">
+            <div class="text-sm font-semibold accent-text uppercase tracking-widest mb-2">The Market</div>
+            <h2 class="text-4xl md:text-5xl font-bold text-white serif">A $9 Billion Untapped Opportunity</h2>
+            <div class="mt-16 flex flex-col md:flex-row gap-8 items-stretch justify-center">
+                <div class="flex-1 bg-white/5 p-8 rounded-xl border-l-2 border-gray-600">
+                    <div class="text-6xl font-extrabold text-gray-500 serif">$29B</div>
+                    <h3 class="text-xl font-bold text-white mt-2">TAM</h3>
+                    <p class="text-gray-400 mt-2">Total "indie tools" and productivity software market.</p>
+                </div>
+                 <div class="flex-1 bg-white/5 p-8 rounded-xl border-l-4 accent-border">
+                    <div class="text-6xl font-extrabold accent-text serif">$9B</div>
+                    <h3 class="text-xl font-bold text-white mt-2">SAM</h3>
+                    <p class="text-gray-400 mt-2">Serviceable market: SMB & Solopreneur productivity by 2030.</p>
+                </div>
+                 <div class="flex-1 bg-white/5 p-8 rounded-xl border-l-4 crimson-border">
+                    <div class="text-6xl font-extrabold crimson-text serif">1,200+</div>
+                    <h3 class="text-xl font-bold text-white mt-2">SOM (Waitlist)</h3>
+                    <p class="text-gray-400 mt-2">Immediate, obtainable market proven by current demand.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 9: Financial Roadmap -->
+    <section class="slide" data-logo="fixed">
+        <div class="slide-content">
+            <div class="text-sm font-semibold accent-text uppercase tracking-widest mb-2">Financial Roadmap</div>
+            <h2 class="text-4xl md:text-5xl font-bold text-white serif">Path to $80M+ Revenue</h2>
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white/5 p-8 rounded-xl border-t-4 accent-border">
+                    <div class="text-sm font-bold accent-text uppercase tracking-widest mb-2">YEAR 1 (SEED)</div>
+                    <h3 class="text-3xl font-bold text-white serif mb-6">Validation</h3>
+                    <ul class="space-y-4">
+                        <li class="flex justify-between border-b border-white/10 pb-2"><span class="text-gray-400">Revenue</span><span class="text-white font-bold">$5.5M</span></li>
+                         <li class="flex justify-between border-b border-white/10 pb-2"><span class="text-gray-400">COGS</span><span class="crimson-text font-bold">($1.1M)</span></li>
+                         <li class="flex justify-between pt-2"><span class="text-white font-semibold">Gross Profit</span><span class="accent-text font-extrabold">$4.4M</span></li>
+                    </ul>
+                </div>
+                <div class="bg-white/5 p-8 rounded-xl border-t-4 border-white/20 opacity-80">
+                    <div class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">YEAR 2 (SERIES A)</div>
+                    <h3 class="text-3xl font-bold text-gray-300 serif mb-6">Expansion</h3>
+                     <ul class="space-y-4 text-gray-400">
+                        <li class="flex justify-between border-b border-white/10 pb-2"><span>Revenue</span><span class="font-bold">$20.8M</span></li>
+                         <li class="flex justify-between border-b border-white/10 pb-2"><span>COGS</span><span class="font-bold">($4.2M)</span></li>
+                         <li class="flex justify-between pt-2"><span class="font-semibold">Gross Profit</span><span class="font-extrabold">$16.6M</span></li>
+                    </ul>
+                </div>
+                <div class="bg-white/5 p-8 rounded-xl border-t-4 border-white/20 opacity-60">
+                    <div class="text-sm font-bold text-gray-500 uppercase tracking-widest mb-2">YEAR 3 (SERIES B)</div>
+                    <h3 class="text-3xl font-bold text-gray-400 serif mb-6">Domination</h3>
+                     <ul class="space-y-4 text-gray-500">
+                        <li class="flex justify-between border-b border-white/5 pb-2"><span>Revenue</span><span class="font-bold">$83.4M</span></li>
+                         <li class="flex justify-between border-b border-white/5 pb-2"><span>COGS</span><span class="font-bold">($16.8M)</span></li>
+                         <li class="flex justify-between pt-2"><span class="font-semibold">Gross Profit</span><span class="font-extrabold">$66.6M</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 10: Competitive Landscape -->
+    <section class="slide" data-logo="fixed">
+        <div class="slide-content">
+             <div class="text-sm font-semibold accent-text uppercase tracking-widest mb-2">Competitive Landscape</div>
+            <h2 class="text-4xl md:text-5xl font-bold text-white serif">Beyond CRM: The Intelligent Connector</h2>
+            <div class="mt-16 overflow-hidden rounded-xl border border-white/10 shadow-2xl">
+                <table class="w-full text-left">
+                    <thead class="bg-white/10 text-white">
+                        <tr>
+                            <th class="p-6 font-bold serif text-xl">Capability</th>
+                            <th class="p-6 font-bold serif text-xl bg-harvard-gold/20 accent-text border-b-4 accent-border">NxtConnect.ai</th>
+                            <th class="p-6 font-bold serif text-xl text-gray-400">HubSpot</th>
+                            <th class="p-6 font-bold serif text-xl text-gray-400">Notion</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white/5 text-gray-300 text-lg">
+                        <tr class="bg-white/5"><td class="p-6 font-semibold text-white">Data Entry</td><td class="p-6 font-bold text-white bg-harvard-gold/10">Zero-Touch AI</td><td class="p-6">Manual</td><td class="p-6">Manual</td></tr>
+                        <tr><td class="p-6 font-semibold text-white">Relationship Intel</td><td class="p-6 font-bold text-white bg-harvard-gold/10">Predictive</td><td class="p-6">Reactive</td><td class="p-6 text-gray-600">None</td></tr>
+                        <tr class="bg-white/5"><td class="p-6 font-semibold text-white">Data Monetization</td><td class="p-6 font-bold text-white bg-harvard-gold/10">Native Capability</td><td class="p-6 text-gray-600">N/A</td><td class="p-6 text-gray-600">N/A</td></tr>
+                        <tr><td class="p-6 font-semibold text-white">B2B Model</td><td class="p-6 font-bold text-white bg-harvard-gold/10">Hybrid (Setup + Lic)</td><td class="p-6">SaaS Only</td><td class="p-6">SaaS Only</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 11: Leadership -->
+    <section class="slide" data-logo="fixed">
+        <div class="slide-content">
+             <div class="text-sm font-semibold accent-text uppercase tracking-widest mb-2">Leadership</div>
+            <h2 class="text-4xl md:text-5xl font-bold text-white serif">GTM Execution & Deep Tech Vision</h2>
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12">
+                 <div class="bg-white/5 p-10 rounded-xl border-t-4 accent-border">
+                    <h3 class="text-3xl font-bold text-white serif">Frederike Falke</h3>
+                    <div class="text-lg font-semibold accent-text mt-1">Co-Founder (Growth & GTM)</div>
+                    <ul class="mt-8 list-disc list-inside text-gray-300 space-y-4 text-lg">
+                        <li>12+ years in SaaS Business Development.</li>
+                        <li class="text-white font-semibold">ex-LinkedIn Growth Team.</li>
+                        <li>Managed 150+ digital sales enablement projects.</li>
+                    </ul>
+                </div>
+                 <div class="bg-white/5 p-10 rounded-xl border-t-4 accent-border">
+                    <h3 class="text-3xl font-bold text-white serif">Farhan F Khan</h3>
+                    <div class="text-lg font-semibold accent-text mt-1">Co-Founder (AI & Tech)</div>
+                    <ul class="mt-8 list-disc list-inside text-gray-300 space-y-4 text-lg">
+                        <li>17+ years in AI & Cybersecurity.</li>
+                        <li class="text-white font-semibold">Patent-holding technologist.</li>
+                        <li>Architected systems for Fortune 500 companies.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 12: The Ask -->
+    <section class="slide" data-logo="fixed">
+        <div class="slide-content">
+             <div class="text-sm font-semibold accent-text uppercase tracking-widest mb-2">The Ask</div>
+            <h2 class="text-4xl md:text-5xl font-bold text-white serif">$2.0M Seed Round</h2>
+            <p class="mt-4 text-xl text-gray-300">Strategic deployment for 24-month runway to hit $5.5M ARR.</p>
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                 <div class="chart-container pie-chart-container mx-auto">
+                    <canvas id="fundsChart"></canvas>
+                </div>
+                <div class="space-y-8">
+                    <div><h4 class="text-xl font-bold text-white flex items-center"><span class="accent-text mr-3">40%</span> Go-to-Market ($800k)</h4><ul class="mt-2 ml-12 list-disc text-gray-400 text-sm space-y-1"><li>Hire VP Sales, 2 Enterprise AEs, 1 Growth Mgr.</li><li>Launch "Event Playbook" in SF & London.</li></ul></div>
+                     <div><h4 class="text-xl font-bold text-white flex items-center"><span class="crimson-text mr-3">30%</span> Product & AI ($600k)</h4><ul class="mt-2 ml-12 list-disc text-gray-400 text-sm space-y-1"><li>Hire 4 Engineers (AI & Full-stack).</li><li>Build SIS monetization platform (v1) & self-serve flow.</li></ul></div>
+                     <div><h4 class="text-xl font-bold text-white flex items-center"><span class="text-gray-500 mr-3">20%</span> Ops & Buffer ($400k)</h4><ul class="mt-2 ml-12 list-disc text-gray-400 text-sm space-y-1"><li>6-month capital runway extension.</li><li>General & Administrative costs.</li></ul></div>
+                     <div><h4 class="text-xl font-bold text-white flex items-center"><span class="text-gray-300 mr-3">10%</span> Security ($200k)</h4><ul class="mt-2 ml-12 list-disc text-gray-400 text-sm space-y-1"><li>Achieve SOC 2 Type II Audit to unblock enterprise sales.</li></ul></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 13: Vision -->
+    <section class="slide" data-logo="fixed">
+        <div class="slide-content text-center">
+            <h1 class="text-5xl md:text-7xl font-extrabold leading-tight text-white serif">
+                Empowering
+                <span class="gold-gradient-text">3 Million+</span> Solopreneurs
+                <br>
+                & <span class="gold-gradient-text">1,500</span> B2B Leaders.
+            </h1>
+        </div>
+    </section>
+
+    <!-- Slide 14: Final Impact (IMPROVED) -->
+    <section class="slide" data-logo="central">
+        <div class="slide-content text-center flex flex-col items-center">
+             <!-- CENTRAL LOGO PLACEHOLDER FOR FINAL SLIDE -->
+             <img src="logo.png" alt="NxtConnect Logo" class="title-logo mb-8" onerror="this.style.display='none'">
+             
+            <h2 class="text-5xl font-bold text-white serif mb-12">The Future of Connection is Here.</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-4xl mb-16">
+                 <div class="bg-white/5 p-6 rounded-lg border-t-2 accent-border">
+                    <div class="text-gray-400 uppercase tracking-widest text-sm mb-2">Validated</div>
+                    <div class="text-3xl font-bold text-white">$30k MRR</div>
+                </div>
+                <div class="bg-white/5 p-6 rounded-lg border-t-2 accent-border">
+                    <div class="text-gray-400 uppercase tracking-widest text-sm mb-2">De-Risked</div>
+                    <div class="text-3xl font-bold text-white">1,200+ Waitlist</div>
+                </div>
+                <div class="bg-white/5 p-6 rounded-lg border-t-2 accent-border">
+                    <div class="text-gray-400 uppercase tracking-widest text-sm mb-2">Unicorn Potential</div>
+                    <div class="text-3xl font-bold accent-text">$700M Asset</div>
+                </div>
+            </div>
+            <h3 class="text-2xl text-gray-300 serif mb-8">Join our $2.0M Seed Round.</h3>
+            <a href="mailto:invest@nxtconnect.ai" class="inline-block px-12 py-4 bg-harvard-gold text-harvard-navy font-bold text-xl rounded-full hover:bg-white transition-colors">
+                invest@nxtconnect.ai
+            </a>
+        </div>
+    </section>
+
+     <!-- Slide 15: Appendix -->
+    <section class="slide" data-logo="fixed">
+        <div class="slide-content">
+            <div class="text-sm font-semibold text-gray-500 uppercase tracking-widest mb-8">Appendix: Sources & Methodology</div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 text-sm text-gray-400">
+                <div><h4 class="text-white font-bold mb-4 text-base">Market Problem Data (Slide 2)</h4><ul class="list-disc list-inside space-y-3"><li><strong>$12.9M Annual Loss:</strong> Gartner, "Measuring the Business Value of Data Quality" Report.</li><li><strong>70% Non-Selling Time:</strong> Salesforce, "State of Sales" Annual Report; HubSpot Sales Trends Report.</li><li><strong>36% Admin Time (Solopreneurs):</strong> Forbes/Aura survey on small business administration.</li></ul></div>
+                <div><h4 class="text-white font-bold mb-4 text-base">Financial Modeling Assumptions</h4><ul class="list-disc list-inside space-y-3"><li><strong>B2B Pricing:</strong> Implementation fees benchmarked at 50-100% of first-year ACV (Source: SBI Growth).</li><li><strong>Engineering Costs:</strong> Based on 2024/25 US Tech Salary data, with 1.3x fully loaded multiplier.</li><li><strong>Maintenance Costs:</strong> $18/mo solopreneur cost based on estimated high-touch support load during initial scaling.</li></ul></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation -->
+    <div id="slide-number" class="slide-number">1 / 15</div>
+    <button id="prev-slide" class="nav-button"><i data-lucide="arrow-left" class="w-6 h-6"></i></button>
+    <button id="next-slide" class="nav-button"><i data-lucide="arrow-right" class="w-6 h-6"></i></button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            const slides = document.querySelectorAll('.slide');
+            const slideNumber = document.getElementById('slide-number');
+            const globalLogo = document.getElementById('global-logo');
+            let currentSlide = 0; const totalSlides = slides.length;
+
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    slide.classList.remove('active-slide');
+                    if (i === index) slide.classList.add('active-slide');
+                });
+                currentSlide = index;
+                slideNumber.textContent = `${currentSlide + 1} / ${totalSlides}`;
+                
+                // Logo Logic
+                const logoType = slides[currentSlide].getAttribute('data-logo');
+                if (logoType === 'fixed') {
+                    globalLogo.classList.remove('hidden');
+                } else {
+                    globalLogo.classList.add('hidden');
+                }
+
+                if (currentSlide === 1) renderProblemChart();
+                if (currentSlide === 11) renderFundsChart();
+            }
+
+            function nextSlide() { showSlide((currentSlide + 1) % totalSlides); }
+            function prevSlide() { showSlide((currentSlide - 1 + totalSlides) % totalSlides); }
+            document.getElementById('next-slide').addEventListener('click', nextSlide);
+            document.getElementById('prev-slide').addEventListener('click', prevSlide);
+            document.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') nextSlide(); if (e.key === 'ArrowLeft') prevSlide(); });
+
+            let problemChart, fundsChart;
+            function renderProblemChart() {
+                const ctx = document.getElementById('problemChart')?.getContext('2d');
+                if (ctx && !problemChart) problemChart = new Chart(ctx, { type: 'doughnut', data: { labels: ['Non-Selling (70%)', 'Active Selling (30%)'], datasets: [{ data: [70, 30], backgroundColor: ['#A51C30', '#D4AF37'], borderWidth: 0 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: '#E6F1FF', font: {family: 'Inter'} } } } } });
+            }
+             function renderFundsChart() {
+                 const ctx = document.getElementById('fundsChart')?.getContext('2d');
+                if (ctx && !fundsChart) fundsChart = new Chart(ctx, { type: 'doughnut', data: { labels: ['GTM (40%)', 'Product (30%)', 'Ops (20%)', 'Security (10%)'], datasets: [{ data: [40, 30, 20, 10], backgroundColor: ['#D4AF37', '#A51C30', '#8892B0', '#E6F1FF'], borderWidth: 0 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: '#E6F1FF', font: {family: 'Inter'} } } } } });
+            }
+            showSlide(0);
+        });
+    </script>
+</body>
+</html>
