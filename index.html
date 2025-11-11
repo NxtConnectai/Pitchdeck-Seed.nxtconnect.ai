@@ -27,6 +27,12 @@
             color: var(--harvard-white);
             overflow: hidden;
         }
+        @media (max-width: 768px) {
+            body {
+                overflow: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+        }
         h1, h2, h3, .serif {
             font-family: 'Playfair Display', serif;
         }
@@ -42,12 +48,14 @@
             align-items: center;
             padding: 4rem;
             opacity: 0;
-            transition: opacity 0.6s ease-in-out;
+            transform: translateX(20px);
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 10;
             background-color: var(--harvard-navy);
         }
         .active-slide {
             opacity: 1;
+            transform: translateX(0);
             z-index: 20;
         }
         .slide-content {
@@ -96,6 +104,7 @@
         .gold-gradient-text {
              background: linear-gradient(to right, #FCEE21, #D4AF37);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         .chart-container {
@@ -108,6 +117,20 @@
             height: 300px;
             max-height: 300px;
             max-width: 300px;
+        }
+        @media (max-width: 768px) {
+            .pie-chart-container {
+                height: 250px;
+                max-height: 250px;
+                max-width: 250px;
+            }
+        }
+        @media (max-width: 480px) {
+            .pie-chart-container {
+                height: 200px;
+                max-height: 200px;
+                max-width: 200px;
+            }
         }
         /* Logo Styling */
         .fixed-logo {
@@ -127,11 +150,85 @@
         }
 
         @media (max-width: 768px) {
-            .hero-text { font-size: 3rem; }
-            .slide { padding: 1.5rem; }
-            #prev-slide { right: 5rem; }
-            #next-slide { right: 1.5rem; }
-            .fixed-logo { height: 2rem; top: 1.5rem; left: 1.5rem; }
+            .hero-text { 
+                font-size: 3rem; 
+                line-height: 1.2;
+            }
+            .slide { 
+                padding: 1.5rem; 
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            /* Add top padding to prevent logo overlap on mobile */
+            .slide[data-logo="fixed"] .slide-content {
+                padding-top: 3.5rem;
+            }
+            #prev-slide { 
+                right: 4.5rem; 
+                bottom: 1.5rem;
+                padding: 0.5rem;
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+            #next-slide { 
+                right: 1rem; 
+                bottom: 1.5rem;
+                padding: 0.5rem;
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+            .nav-button i {
+                width: 1.25rem;
+                height: 1.25rem;
+            }
+            .fixed-logo { 
+                height: 1.75rem; 
+                top: 1rem; 
+                left: 1rem; 
+            }
+            .title-logo {
+                height: 3.5rem;
+                margin-bottom: 1.5rem;
+            }
+            .slide-number {
+                bottom: 1.5rem;
+                left: 1rem;
+                font-size: 0.75rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .hero-text { 
+                font-size: 2.25rem; 
+            }
+            .slide { 
+                padding: 1rem; 
+            }
+            /* Add top padding to prevent logo overlap on small mobile */
+            .slide[data-logo="fixed"] .slide-content {
+                padding-top: 3rem;
+            }
+            .title-logo {
+                height: 2.5rem;
+                margin-bottom: 1rem;
+            }
+            .fixed-logo {
+                height: 1.5rem;
+                top: 0.75rem;
+                left: 0.75rem;
+            }
+            #prev-slide { 
+                right: 4rem; 
+                bottom: 1rem;
+            }
+            #next-slide { 
+                right: 0.75rem; 
+                bottom: 1rem;
+            }
+            .slide-number {
+                bottom: 1rem;
+                left: 0.75rem;
+                font-size: 0.7rem;
+            }
         }
     </style>
 </head>
@@ -168,14 +265,14 @@
                     <ul class="space-y-6">
                         <li class="flex items-start">
                             <div class="flex-shrink-0">
-                                <span class="block text-5xl font-extrabold crimson-text serif">70%</span>
+                                <span class="block text-3xl md:text-5xl font-extrabold crimson-text serif">70%</span>
                                 <span class="text-xs text-gray-400 uppercase tracking-widest">Non-Selling Time</span>
                             </div>
                             <p class="ml-6 text-lg text-gray-300">of sales rep time is wasted on admin & data entry, NOT selling. (Source: Salesforce)</p>
                         </li>
                         <li class="flex items-start">
                              <div class="flex-shrink-0">
-                                 <span class="block text-4xl font-extrabold crimson-text serif">$12.9M</span>
+                                 <span class="block text-3xl md:text-4xl font-extrabold crimson-text serif">$12.9M</span>
                                  <span class="text-xs text-gray-400 uppercase tracking-widest">Avg. Annual Loss</span>
                             </div>
                             <p class="ml-6 text-lg text-gray-300">cost to organizations due to poor data quality. (Source: Gartner)</p>
@@ -187,7 +284,7 @@
                     <ul class="space-y-6">
                          <li class="flex items-start">
                             <div class="flex-shrink-0">
-                                <span class="block text-5xl font-extrabold accent-text serif">36%</span>
+                                <span class="block text-3xl md:text-5xl font-extrabold accent-text serif">36%</span>
                                 <span class="text-xs text-gray-400 uppercase tracking-widest">Lost Workweek</span>
                             </div>
                             <p class="ml-6 text-lg text-gray-300">of their week is lost to non-billable administrative tasks, mathematically capping income.</p>
@@ -266,7 +363,7 @@
         <div class="slide-content">
              <div class="text-sm font-semibold accent-text uppercase tracking-widest mb-2">Traction</div>
             <h2 class="text-4xl md:text-5xl font-bold text-white serif">De-Risked & Ready to Scale</h2>
-             <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+             <div class="mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 text-center">
                 <div>
                     <div class="text-5xl md:text-6xl font-extrabold text-white serif">$30k</div>
                     <div class="text-gray-400 mt-2 uppercase tracking-widest text-sm font-semibold">Monthly Recurring Rev</div>
@@ -417,23 +514,25 @@
         <div class="slide-content">
              <div class="text-sm font-semibold accent-text uppercase tracking-widest mb-2">Competitive Landscape</div>
             <h2 class="text-4xl md:text-5xl font-bold text-white serif">Beyond CRM: The Intelligent Connector</h2>
-            <div class="mt-16 overflow-hidden rounded-xl border border-white/10 shadow-2xl">
-                <table class="w-full text-left">
-                    <thead class="bg-white/10 text-white">
-                        <tr>
-                            <th class="p-6 font-bold serif text-xl">Capability</th>
-                            <th class="p-6 font-bold serif text-xl bg-harvard-gold/20 accent-text border-b-4 accent-border">NxtConnect.ai</th>
-                            <th class="p-6 font-bold serif text-xl text-gray-400">HubSpot</th>
-                            <th class="p-6 font-bold serif text-xl text-gray-400">Notion</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-white/5 text-gray-300 text-lg">
-                        <tr class="bg-white/5"><td class="p-6 font-semibold text-white">Data Entry</td><td class="p-6 font-bold text-white bg-harvard-gold/10">Zero-Touch AI</td><td class="p-6">Manual</td><td class="p-6">Manual</td></tr>
-                        <tr><td class="p-6 font-semibold text-white">Relationship Intel</td><td class="p-6 font-bold text-white bg-harvard-gold/10">Predictive</td><td class="p-6">Reactive</td><td class="p-6 text-gray-600">None</td></tr>
-                        <tr class="bg-white/5"><td class="p-6 font-semibold text-white">Data Monetization</td><td class="p-6 font-bold text-white bg-harvard-gold/10">Native Capability</td><td class="p-6 text-gray-600">N/A</td><td class="p-6 text-gray-600">N/A</td></tr>
-                        <tr><td class="p-6 font-semibold text-white">B2B Model</td><td class="p-6 font-bold text-white bg-harvard-gold/10">Hybrid (Setup + Lic)</td><td class="p-6">SaaS Only</td><td class="p-6">SaaS Only</td></tr>
-                    </tbody>
-                </table>
+            <div class="mt-16 overflow-x-auto rounded-xl border border-white/10 shadow-2xl">
+                <div class="min-w-[600px]">
+                    <table class="w-full text-left">
+                        <thead class="bg-white/10 text-white">
+                            <tr>
+                                <th class="p-4 md:p-6 font-bold serif text-base md:text-xl">Capability</th>
+                                <th class="p-4 md:p-6 font-bold serif text-base md:text-xl bg-harvard-gold/20 accent-text border-b-4 accent-border">NxtConnect.ai</th>
+                                <th class="p-4 md:p-6 font-bold serif text-base md:text-xl text-gray-400">HubSpot</th>
+                                <th class="p-4 md:p-6 font-bold serif text-base md:text-xl text-gray-400">Notion</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-white/5 text-gray-300 text-sm md:text-lg">
+                            <tr class="bg-white/5"><td class="p-4 md:p-6 font-semibold text-white">Data Entry</td><td class="p-4 md:p-6 font-bold text-white bg-harvard-gold/10">Zero-Touch AI</td><td class="p-4 md:p-6">Manual</td><td class="p-4 md:p-6">Manual</td></tr>
+                            <tr><td class="p-4 md:p-6 font-semibold text-white">Relationship Intel</td><td class="p-4 md:p-6 font-bold text-white bg-harvard-gold/10">Predictive</td><td class="p-4 md:p-6">Reactive</td><td class="p-4 md:p-6 text-gray-600">None</td></tr>
+                            <tr class="bg-white/5"><td class="p-4 md:p-6 font-semibold text-white">Data Monetization</td><td class="p-4 md:p-6 font-bold text-white bg-harvard-gold/10">Native Capability</td><td class="p-4 md:p-6 text-gray-600">N/A</td><td class="p-4 md:p-6 text-gray-600">N/A</td></tr>
+                            <tr><td class="p-4 md:p-6 font-semibold text-white">B2B Model</td><td class="p-4 md:p-6 font-bold text-white bg-harvard-gold/10">Hybrid (Setup + Lic)</td><td class="p-4 md:p-6">SaaS Only</td><td class="p-4 md:p-6">SaaS Only</td></tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </section>
