@@ -1,0 +1,123 @@
+# NxtConnect Pitchdeck - Cursor Rules
+
+## Project Context
+
+This folder contains the investor pitch deck published on GitHub Pages.
+
+**Live URL:** https://nxtconnectai.github.io/Pitchdeck-Seed.nxtconnect.ai/
+**Repository:** This is a separate deployment from the main app
+
+---
+
+## Structure
+
+```
+pitchdeck/
+└── Pitchdeck-Seed.nxtconnect.ai/
+    ├── index.html          # Main presentation (all slides)
+    ├── logo.png            # NxtConnect logo
+    └── .nojekyll           # Bypass Jekyll processing
+```
+
+---
+
+## Key Facts (Must Match)
+
+All numbers must match `plan/investor/COMPANY_FACTS.md`:
+
+| Metric | Value |
+|--------|-------|
+| MRR | $30,000 |
+| ARR | $360,000 |
+| Waitlist | 1,200+ |
+| Data Asset | $700M |
+| Raise | $2.0M Seed |
+| Runway | 24 months |
+| Target ARR | $5.5M |
+
+---
+
+## Pricing Tiers (3-Tier Model for Investors)
+
+| Tier | Price | Role |
+|------|-------|------|
+| Pro | $29.99/mo | PLG acquisition |
+| Team | $149/mo | SMB expansion |
+| Enterprise | Custom $50K+ ACV | High-touch monetization |
+
+---
+
+## Unit Economics
+
+**Pro Tier (PLG)**
+| Metric | Value |
+|--------|-------|
+| Revenue | $29.99/mo |
+| COGS | $11/mo |
+| Gross Profit | $19/mo (63%) |
+| CAC | $25 |
+| LTV:CAC | 29:1 |
+
+**Enterprise (GTM)**
+| Metric | Value |
+|--------|-------|
+| First Year ACV | $50,000+ |
+| Implementation Revenue | Included |
+| Gross Margin | 80%+ |
+| Payback | Immediate |
+
+---
+
+## Tech Stack Used
+
+- **Tailwind CSS** via CDN
+- **Chart.js** for pie charts
+- **Lucide Icons**
+- **Playfair Display + Inter fonts**
+- Pure HTML/CSS/JS (no build process)
+
+---
+
+## Design Theme
+
+- Harvard Professional style
+- Navy background (#0A192F)
+- Gold accent (#D4AF37)
+- Crimson highlights (#A51C30)
+- Serif headings (Playfair Display)
+- Sans-serif body (Inter)
+
+---
+
+## Deployment
+
+Push to main branch automatically deploys via GitHub Pages.
+
+```bash
+cd pitchdeck/Pitchdeck-Seed.nxtconnect.ai
+git add -A && git commit -m "update deck" && git push origin main
+```
+
+---
+
+## When Updating
+
+1. Read `plan/investor/COMPANY_FACTS.md` first
+2. Check `plan/PersonalCRM/PRICING_STRATEGY.md` for pricing details
+3. Update numbers in index.html
+4. Test locally by opening index.html in browser
+5. Push to deploy
+
+---
+
+## Critical Rules
+
+1. **Never** change design theme without approval
+2. **Always** match numbers to COMPANY_FACTS.md
+3. **Keep** slides to 15 max
+4. **Test** on mobile before pushing
+5. **Verify** logo displays correctly
+
+---
+
+*Last Updated: January 24, 2026*
