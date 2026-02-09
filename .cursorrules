@@ -5,7 +5,7 @@
 This folder contains the investor pitch deck published on GitHub Pages.
 
 **Live URL:** https://nxtconnectai.github.io/Pitchdeck-Seed.nxtconnect.ai/
-**Repository:** This is a separate deployment from the main app
+**Repository:** `NxtConnectai/Pitchdeck-Seed.nxtconnect.ai` (branch: `main`, GitHub Pages auto-deploy)
 
 ---
 
@@ -100,7 +100,24 @@ git add -A && git commit -m "update deck" && git push origin main
 
 ---
 
-## When Updating
+## 🔄 Session Protocol (Tier 2: Content/Static)
+
+### On Start
+Read these files FIRST (in order):
+1. This file (`.cursorrules`) - Deck rules and key facts
+2. `plan/investor/COMPANY_FACTS.md` - **Source of truth for all numbers**
+
+**Confirm:** "I've loaded pitchdeck context. Key metrics: $30K MRR, 1,200+ waitlist, $2M raise. What would you like to update?"
+
+### On Stop
+**Step 1:** Verify all numbers in `index.html` match `COMPANY_FACTS.md`
+**Step 2:** Push changes
+```bash
+cd pitchdeck/Pitchdeck-Seed.nxtconnect.ai && git add -A && git commit -m "update deck" && git push origin main
+```
+**Step 3:** Confirm: "Deck updated and pushed. Verified numbers match COMPANY_FACTS.md."
+
+## When Updating Content
 
 1. Read `plan/investor/COMPANY_FACTS.md` first
 2. Check `plan/PersonalCRM/PRICING_STRATEGY.md` for pricing details
@@ -120,4 +137,4 @@ git add -A && git commit -m "update deck" && git push origin main
 
 ---
 
-*Last Updated: January 24, 2026*
+*Last Updated: February 9, 2026 - Added Tier 2 session protocol*
